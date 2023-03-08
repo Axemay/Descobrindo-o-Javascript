@@ -25,10 +25,9 @@
 
         const pnlCatalogo= document.getElementById("pnlCatalogo");
         // const pnlCatalogo  = Array.from(pnlCatalogoLista)
-        console.log(pnlCatalogo)
+
         receitasArquivo.forEach((receita) => {
           const cardReceita = criarReceita(receita);
-          console.log(cardReceita);
           pnlCatalogo.appendChild(cardReceita);
           
         });
@@ -38,19 +37,24 @@
         const card = document.createElement("div");
         card.classList.add("main-receitas-card");
         const ingredientes = getListaIngredientes(receita)
+        const titulo = document.createElement('h2')
+        titulo.innerHTML = receita.titulo
+        const imagem = document.createElement('img')
+        imagem.src = receita.imagem
+        const modoPreparo = document.createElement('p')
+        modoPreparo.innerHTML = receita.preparo
+        card.appendChild(imagem)
+        card.appendChild(titulo)
         card.appendChild(ingredientes)
+        card.appendChild(modoPreparo)
         return card
       }
 
+ 
+
       function getListaIngredientes(receita) {
         const lista = receita
-        // const listaCard = document.createElement('ul')
-        
-        console.log(lista)
         const listaIngredientes = lista.ingredientes.map(function (elemento) {
-              // const item = document.createElement('li')
-              // item.innerHTML = elemento.innerText
-              // listaCard.appendChild(item)
             return elemento
               
         })
