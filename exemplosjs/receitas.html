@@ -10,7 +10,48 @@
       integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
       crossorigin="anonymous"
     />
+    <style>
 
+      #pnlCatalogo{
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+
+.main-receitas-card{
+    background-color: #9E7676;
+    width: 300px;
+    height: 600px;
+    margin: 10px;
+    color: #fff;
+    padding: 10px;
+    padding-top: 0;
+    
+}
+
+.topo{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.foto-receita{
+    min-height: 200px;
+    padding-bottom: 8px;
+}
+
+@media screen and (max-width: 900px) {
+
+    .section{
+        
+        flex-direction: column;
+        /* flex-wrap: wrap; */
+    }
+
+}
+    </style>
     <title>Catálogo de Receitas</title>
   </head>
   <body>
@@ -24,10 +65,12 @@
         const receitasArquivo = await receitas.json();
 
         const pnlCatalogo= document.getElementById("pnlCatalogo");
-        // const pnlCatalogo  = Array.from(pnlCatalogoLista)
-
+        const h1 = document.createElement('h1')
+        h1.innerHTML = `Temos ${receitasArquivo.length} receitas`
+        pnlCatalogo.appendChild(h1)
         receitasArquivo.forEach((receita) => {
           const cardReceita = criarReceita(receita);
+          cardReceita.classList.add('card-receita')
           pnlCatalogo.appendChild(cardReceita);
           
         });
@@ -37,16 +80,31 @@
         const card = document.createElement("div");
         card.classList.add("main-receitas-card");
         const ingredientes = getListaIngredientes(receita)
+        ingredientes.classList.add('lista-receita')
         const titulo = document.createElement('h2')
+        titulo.classList.add('second-title')
         titulo.innerHTML = receita.titulo
         const imagem = document.createElement('img')
+        const divTopo = document.createElement('div')
+        divTopo.classList.add('topo')
+        divTopo.appendChild(imagem)
+        divTopo.appendChild(titulo)
         imagem.src = receita.imagem
+        imagem.classList.add('foto-receita')
+        imagem.style.maxWidth = '250px'
         const modoPreparo = document.createElement('p')
         modoPreparo.innerHTML = receita.preparo
-        card.appendChild(imagem)
-        card.appendChild(titulo)
+        modoPreparo.classList.add('modo-preparo')
+
+        const separador = document.createElement('hr')
+
+        card.appendChild(divTopo)
         card.appendChild(ingredientes)
+        card.appendChild(separador)
         card.appendChild(modoPreparo)
+
+        card.style.width = '250px'
+
         return card
       }
 
