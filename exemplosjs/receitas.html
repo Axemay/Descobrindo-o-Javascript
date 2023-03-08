@@ -17,43 +17,61 @@
     <section class="container-fluid bg-warning">
       <div class="flex-wrap" id="pnlCatalogo"></div>
     </section>
+    
     <script>
       async function initCriacao(arquivo) {
         const receitas = await fetch(arquivo);
         const receitasArquivo = await receitas.json();
 
-        const pnlCatalogo = document.getElementById("pnlCatalogo");
-
+        const pnlCatalogo= document.getElementById("pnlCatalogo");
+        // const pnlCatalogo  = Array.from(pnlCatalogoLista)
+        console.log(pnlCatalogo)
         receitasArquivo.forEach((receita) => {
           const cardReceita = criarReceita(receita);
-          // pnlCatalogo.appendChild(cardReceita);
+          console.log(cardReceita);
+          pnlCatalogo.appendChild(cardReceita);
+          
         });
       }
 
       function criarReceita(receita) {
         const card = document.createElement("div");
         card.classList.add("main-receitas-card");
-        getListaIngredientes(receita)
+        const ingredientes = getListaIngredientes(receita)
+        card.appendChild(ingredientes)
+        return card
       }
 
       function getListaIngredientes(receita) {
-        const lista = receita.json
-        const listaCard = document.createElement('ul')
-        listaCard.classList.add('lista-receita')
+        const lista = receita
+        // const listaCard = document.createElement('ul')
         
-        const listaIngredientes = lista.map((receita) =>{
-          const ingredientes = receita.ingredientes
-          console.log(ingredientes)
-          ingredientes.forEach((ingrediente) => {
-            const item = document.createElement('li');
-            item.classList.add('lista-receita-item');
-            listaCard.appendChild(item);
-          })
+        console.log(lista)
+        const listaIngredientes = lista.ingredientes.map(function (elemento) {
+              // const item = document.createElement('li')
+              // item.innerHTML = elemento.innerText
+              // listaCard.appendChild(item)
+            return elemento
+              
         })
-          return listaCard;
-          console.log(listaCard)
-          console.log(listaIngredientes)
-      }
+
+        const elementos = listaIngredientes.reduce((lista, valor) => {
+        const novoItem = document.createElement("li");
+        novoItem.textContent = valor;
+        lista.appendChild(novoItem);
+        return lista;
+      }, document.createElement("ul"));
+      return elementos
+      } 
+      
+    
+   
+      // elementos.classList.add('lista-receita')
+       
+      // }
+        
+      
+      
         initCriacao('./receitas.json')
     </script>
   </body>
