@@ -66,8 +66,10 @@
 
         const pnlCatalogo= document.getElementById("pnlCatalogo");
         const h1 = document.createElement('h1')
+        const section = document.querySelector('section')
+        
         h1.innerHTML = `Temos ${receitasArquivo.length} receitas`
-        pnlCatalogo.appendChild(h1)
+        section.insertBefore(h1, pnlCatalogo)
         receitasArquivo.forEach((receita) => {
           const cardReceita = criarReceita(receita);
           cardReceita.classList.add('card-receita')
@@ -125,13 +127,6 @@
       }, document.createElement("ul"));
       return elementos
       } 
-      
-    
-   
-      // elementos.classList.add('lista-receita')
-       
-      // }
-        
       
       
         initCriacao('./receitas.json')
