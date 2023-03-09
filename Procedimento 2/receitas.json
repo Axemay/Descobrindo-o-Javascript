@@ -11,6 +11,7 @@
         "ingredientes": ["Farinha de trigo", "Açúcar", "Café Coado", "Chocolate em pó", "Ovos"],
         "preparo": "Bata o açúcar, as gemas e o café. Adicione farinha e chocolate e mexa bem. Bata as claras e junte à mistura."
     },
+    
     {
         "titulo": "Coxinha de Brigadeiro",
         "imagem": "./img/coxinha.jpg",
