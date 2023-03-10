@@ -4,54 +4,13 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css">
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
       rel="stylesheet"
       integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
       crossorigin="anonymous"
-    />
-    <style>
-
-      #pnlCatalogo{
-        height: 100vh;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-      }
-
-
-.main-receitas-card{
-    background-color: #9E7676;
-    width: 300px;
-    height: 600px;
-    margin: 10px;
-    color: #fff;
-    padding: 10px;
-    padding-top: 0;
-    
-}
-
-.topo{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.foto-receita{
-    min-height: 200px;
-    padding-bottom: 8px;
-}
-
-@media screen and (max-width: 900px) {
-
-    .section{
-        
-        flex-direction: column;
-        /* flex-wrap: wrap; */
-    }
-
-}
-    </style>
+    >
     <title>Página de Receitas Dinâmica</title>
   </head>
   <body>
@@ -59,77 +18,7 @@
       <div class="flex-wrap" id="pnlCatalogo"></div>
     </section>
     
-    <script>
-      async function initCriacao(arquivo) {
-        const receitas = await fetch(arquivo);
-        const receitasArquivo = await receitas.json();
-
-        const pnlCatalogo= document.getElementById("pnlCatalogo");
-        const h1 = document.createElement('h1')
-        const section = document.querySelector('section')
-        
-        h1.innerHTML = `Temos ${receitasArquivo.length} receitas`
-        section.insertBefore(h1, pnlCatalogo)
-        receitasArquivo.forEach((receita) => {
-          const cardReceita = criarReceita(receita);
-          cardReceita.classList.add('card-receita')
-          pnlCatalogo.appendChild(cardReceita);
-          
-        });
-      }
-
-      function criarReceita(receita) {
-        const card = document.createElement("div");
-        card.classList.add("main-receitas-card");
-        const ingredientes = getListaIngredientes(receita)
-        ingredientes.classList.add('lista-receita')
-        const titulo = document.createElement('h2')
-        titulo.classList.add('second-title')
-        titulo.innerHTML = receita.titulo
-        const imagem = document.createElement('img')
-        const divTopo = document.createElement('div')
-        divTopo.classList.add('topo')
-        divTopo.appendChild(imagem)
-        divTopo.appendChild(titulo)
-        imagem.src = receita.imagem
-        imagem.classList.add('foto-receita')
-        imagem.style.maxWidth = '250px'
-        const modoPreparo = document.createElement('p')
-        modoPreparo.innerHTML = receita.preparo
-        modoPreparo.classList.add('modo-preparo')
-
-        const separador = document.createElement('hr')
-
-        card.appendChild(divTopo)
-        card.appendChild(ingredientes)
-        card.appendChild(separador)
-        card.appendChild(modoPreparo)
-
-        card.style.width = '250px'
-
-        return card
-      }
-
- 
-
-      function getListaIngredientes(receita) {
-        const lista = receita
-        const listaIngredientes = lista.ingredientes.map(function (elemento) {
-            return elemento
-              
-        })
-
-        const elementos = listaIngredientes.reduce((lista, valor) => {
-        const novoItem = document.createElement("li");
-        novoItem.textContent = valor;
-        lista.appendChild(novoItem);
-        return lista;
-      }, document.createElement("ul"));
-      return elementos
-      } 
-      
-      
-        initCriacao('./receitas.json')
+    <script src="script.js">      
     </script>
   </body>
 </html>
